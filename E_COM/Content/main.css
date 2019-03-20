@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.menu-top {
+    justify-content: flex-end;
+}
+.menu {
+    display: flex;
+    width:100%;
+}
+
+.cover {
+    margin-top: 150px;
+}
+main{
+    display:flex;
+    flex-direction:row;
+    justify-content:initial
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+}
