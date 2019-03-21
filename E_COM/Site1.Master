@@ -11,7 +11,9 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
 	<div class="container">
+    <form id="Form1" runat="server">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="#">Livre pour tous</a>
 
@@ -21,39 +23,43 @@
 		  </button>
 		  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="navbar-nav">
+
+			<% if (isAthenticated)
+				{ %>
 			  <li class="nav-item">
-				<a class="nav-link" href="#"><span>() Panier</span></a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="#">Se connecter</a>
+				  <asp:LinkButton  class="nav-link" ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Se Déconnecter</asp:LinkButton>
 			  </li>
 			</ul>
-	        <form id="login" runat="server" class="form-inline">
+			  <% }
+	          else
+	          { %>
+			  <div class="form-inline">
 				<div class="form-group mb-2">
-					<label for="staticEmail2" class="sr-only">E-mail</label>
-					<input type="text" class="form-control" id="staticEmail2"  placeholder="E-mail"/>
+					<label for="staticEmail2" class="sr-only">Nom d'utilisateur</label>
+					<asp:TextBox type="text"  runat="server" class="form-control" ID="Username"  placeholder="Nom d'utilisateur"/>
 				</div>
 				<div class="form-group mx-sm-3 mb-2">
 					<label for="inputPassword2" class="sr-only">Mot de passe</label>
-					<input type="password" class="form-control" id="inputPassword2" placeholder="Mot de passe" />
+					<asp:TextBox  type="password" runat="server" class="form-control" ID="Password" placeholder="Mot de passe" />
 				</div>
-				<button type="submit" class="btn btn-primary mb-2">Connexion</button>
-			</form>
+				<asp:Button ID="SubmitConnexion" type="submit" runat="server" Text="Connexion" class="btn btn-primary mb-2" OnClick="SubmitConnexion_Click"></asp:Button>
+			  </div>
+			  <% }%> 
 		  </div>
 	  </div>
 	</nav>
 
 	<ul class="nav justify-content-center">
 	  <li class="nav-item">
-		<a class="nav-link active" href="#">Home</a>
+		<a class="nav-link active" href="default.aspx">Home</a>
 	  </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Livre Au Choix
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Anglais</a>
-          <a class="dropdown-item" href="#">Français</a>
+          <a class="dropdown-item" href="Categories.aspx?nomCat=anglais">Anglais</a>
+          <a class="dropdown-item" href="Categories.aspx?nomCat=francais">Français</a>
         </div>
       </li>
      <li class="nav-item dropdown">
@@ -61,15 +67,19 @@
           Romans
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Drama</a>
+          <a class="dropdown-item" href="Categories.aspx?nomCat=action">Action</a>
+          <a class="dropdown-item" href="Categories.aspx?nomCat=drama">Drama</a>
         </div>
       </li>
+	  <li class="nav-item">
+		  <a class="nav-link" href="panier.aspx"><span>(<%: this.Session["CartItemsCount"] %>) Panier</span></a>
+	  </li>
 	</ul>
+    <asp:Label ID="Lbl_error" runat="server"></asp:Label>
     <asp:ContentPlaceHolder ID="MainContent" runat="server">
+		
     </asp:ContentPlaceHolder>
-
-
+    </form>
 	<footer class="footer">
 		 &copy; 2019 Librairie pour tous
 	</footer>
